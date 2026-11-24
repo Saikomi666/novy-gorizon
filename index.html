@@ -150,32 +150,14 @@
       <button class="join-btn" id="successClose">ВЕРНУТЬСЯ НА ГЛАВНУЮ</button>
     </div>
   </div>
- <div class="music-player">
+<div class="music-player">
   <audio id="bgMusic" loop preload="auto">
     <source src="./music.mp3" type="audio/mpeg">
   </audio>
 
   <button id="musicToggle" class="music-toggle"
           type="button" aria-label="Включить музыку">
-
-    <svg class="music-heart" viewBox="0 0 100 92"
-         xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="heartGradient" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#ffd1ec"/>
-          <stop offset="50%" stop-color="#efaee0"/>
-          <stop offset="100%" stop-color="#b99be9"/>
-        </linearGradient>
-      </defs>
-
-      <path
-        d="M50 87 C42 78 5 53 5 29 C5 2 37 -5 50 23 C63 -5 95 2 95 29 C95 53 58 78 50 87Z"
-        fill="url(#heartGradient)"
-        stroke="#ffe5f5"
-        stroke-width="2.5"
-      />
-    </svg>
-
+    <span class="music-heart">♥</span>
     <span id="musicIcon">▶</span>
   </button>
 </div>

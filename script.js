@@ -232,18 +232,17 @@ form.addEventListener("submit", async (e) => {
 const bgMusic = document.getElementById("bgMusic");
 const musicToggle = document.getElementById("musicToggle");
 const musicIcon = document.getElementById("musicIcon");
-const musicText = document.getElementById("musicText");
 
 if (bgMusic && musicToggle) {
   bgMusic.volume = 0.35;
 
   function updateMusicButton() {
     if (bgMusic.paused) {
-      musicIcon.textContent = "♫";
-      musicText.textContent = "ВКЛЮЧИТЬ МУЗЫКУ";
+      musicIcon.textContent = "▶";
+      musicToggle.setAttribute("aria-label", "Включить музыку");
     } else {
-      musicIcon.textContent = "Ⅱ";
-      musicText.textContent = "ПАУЗА";
+      musicIcon.textContent = "♫";
+      musicToggle.setAttribute("aria-label", "Поставить музыку на паузу");
     }
   }
 
@@ -251,7 +250,7 @@ if (bgMusic && musicToggle) {
     try {
       await bgMusic.play();
     } catch (error) {
-      console.log("Браузер ожидает нажатия для запуска музыки.");
+      console.log("Для запуска музыки нужно взаимодействие с сайтом.");
     }
     updateMusicButton();
   }
@@ -265,22 +264,14 @@ if (bgMusic && musicToggle) {
     }
   });
 
-  // Пробуем включить музыку при загрузке
-  playMusic();
-
-  // Если браузер заблокировал запуск,
-  // пробуем включить после первого действия пользователя
-  document.addEventListener("pointerdown", () => {
-    if (bgMusic.paused) {
-      playMusic();
-    }
-  }, { once: true });
-
   bgMusic.addEventListener("play", updateMusicButton);
   bgMusic.addEventListener("pause", updateMusicButton);
-  bgMusic.addEventListener("error", () => {
-    console.error("Не удалось загрузить music.mp3");
-  });
+
+  playMusic();
+
+  document.addEventListener("pointerdown", () => {
+    if (bgMusic.paused) playMusic();
+  }, { once: true });
 
   updateMusicButton();
 }

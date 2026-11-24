@@ -227,3 +227,55 @@ form.addEventListener("submit", async (e) => {
     submitButton.disabled = false;
   }
 });
+// BACKGROUND MUSIC
+
+const bgMusic = document.getElementById("bgMusic");
+const musicToggle = document.getElementById("musicToggle");
+const musicIcon = document.getElementById("musicIcon");
+const musicText = document.getElementById("musicText");
+
+if (bgMusic && musicToggle) {
+
+  bgMusic.volume = 0.35;
+
+  function updateMusicButton() {
+    if (bgMusic.paused) {
+      musicIcon.textContent = "♫";
+      musicText.textContent = "MUSIC: OFF";
+    } else {
+      musicIcon.textContent = "Ⅱ";
+      musicText.textContent = "MUSIC: ON";
+    }
+  }
+
+  async function startMusic() {
+    try {
+      await bgMusic.play();
+      updateMusicButton();
+    } catch (error) {
+      updateMusicButton();
+    }
+  }
+
+  musicToggle.addEventListener("click", async () => {
+    if (bgMusic.paused) {
+      await startMusic();
+    } else {
+      bgMusic.pause();
+      updateMusicButton();
+    }
+  });
+
+  // Попытка автоматического запуска
+  startMusic();
+
+  // Повторная попытка после первого действия посетителя
+  document.addEventListener("click", () => {
+    if (bgMusic.paused) {
+      startMusic();
+    }
+  }, { once: true });
+
+  bgMusic.addEventListener("play", updateMusicButton);
+  bgMusic.addEventListener("pause", updateMusicButton);
+}
